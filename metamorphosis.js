@@ -13,3 +13,14 @@ function shuffleCards() {
         mixedCardsContainer.appendChild(mixedCardsContainer.children[Math.random() * i | 0]);
     }
 }
+
+function initHandlers() {
+    let cards = document.getElementsByClassName('card');
+    for (const card of cards){
+        card.addEventListener("dragstart", dragStartHandler);
+    }
+}
+
+function dragStartHandler(event){
+    console.debug("rozpoczął się drag & drop", event.target);
+}
