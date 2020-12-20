@@ -32,6 +32,9 @@ function initHandlers() {
 
     mixedCardsContainer.addEventListener("dragover", mixedCardsDragHandler);
     mixedCardsContainer.addEventListener("drop", mixedCardsDropHandler);
+
+    mixedCardsContainer.addEventListener("dragenter", mixedCardsEnterHandler);
+    mixedCardsContainer.addEventListener("dragleave", mixedCardsLeaveHandler);
 }
 
 function dragStartHandler(event){
@@ -72,11 +75,14 @@ function dropHandler(event){
 
 function togleCardSlots(off = false){
     const slots = document.getElementsByClassName('card-slot');
+    const mixedCardsContainer = document.querySelector('.mixed-cards');
     for (const slot of slots){
         if(off){
-            slot.classList.remove('card-slot-highlighted')
+            slot.classList.remove('card-slot-highlighted');
+            mixedCardsContainer.classList.remove('mixed-cards-highlighted');
         } else {
             slot.classList.add('card-slot-highlighted')
+            mixedCardsContainer.classList.add('mixed-cards-highlighted');
         }
     }
 }
@@ -103,4 +109,15 @@ function mixedCardsDropHandler(event){
     } else {
         event.target.appendChild(el);
     }
+}
+
+function mixedCardsEnterHandler(event){
+    if(event.target.nodeName=="IMG"){
+        event.target.parentNode.parentNode.classList.add('mixed-cards-highlighted-drop')
+    } else{
+        event.target.classList.add('mixed-cards-highlighted-drop');
+    }
+}
+function mixedCardsLeaveHandler(event){
+    event.target.classList.remove('mixed-cards-highlighted-drop');
 }

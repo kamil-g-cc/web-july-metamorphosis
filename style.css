@@ -33,7 +33,23 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     min-height: 150px;
-    border: 4px dashed transparent;
+    border: 4px dashed #a2202000;
+}
+
+.mixed-cards-highlighted {
+    max-width: 1000px;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 150px;
+    border: 4px dashed #f71ee7;
+}
+
+.mixed-cards-highlighted-drop {
+    max-width: 1000px;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 150px;
+    border: 4px dashed #ffe300;
 }
 
 .card-slot {
