@@ -121,3 +121,26 @@ function mixedCardsEnterHandler(event){
 function mixedCardsLeaveHandler(event){
     event.target.classList.remove('mixed-cards-highlighted-drop');
 }
+
+function checkWin(){
+    let win = false
+    let frogs_correct = ['f1', 'f2', 'f3', 'f4'];
+    let buterflies_correct = ['b1', 'b2', 'b3', 'b4'];
+    let frogs = document.getElementById('metamorphosis-slots-frog').children;
+    let buterflies = document.getElementById('metamorphosis-slots-butterfly').children;
+    let i = 0;
+    for(let frog of frogs){
+        if(frogs_correct[i++]!=frog.firstElementChild.id){
+            return false;
+        }
+    }
+    i = 0;
+    for(let buterfy of buterflies){
+        if(buterflies_correct[i++]!=buterfy.firstElementChild.id){
+            return false;
+        }
+    }
+    return true;
+
+
+}
