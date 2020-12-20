@@ -24,11 +24,15 @@ function initHandlers() {
     for (const card of cardSlots){
         card.addEventListener("dragover", dragOverHandler);
         card.addEventListener("drop", dropHandler);
+
+        card.addEventListener("dragenter", dragEnterHandler);
+        card.addEventListener("dragleave", dragLeaveHandler);
     }
 }
 
 function dragStartHandler(event){
-    console.debug("rozpoczął się drag & drop", event.target);
+    console.debug("rozpoczął się drag & drop", event.target.id);
+    event.dataTransfer.setData('text/plain', event.target.id);
     togleCardSlots();
     event.target.classList.add('card-highlighted');
 }
@@ -42,10 +46,15 @@ function dragEndHandler(event){
 
 function dragOverHandler(event){
     console.debug("drag over...")
+    event.target.classList.add('card-slot-highlighted-drop');
     event.preventDefault();
 }
 function dropHandler(event){
-    console.debug("drop")
+    let id = event.dataTransfer.getData("text/plain")
+    let el = document.getElementById(id);
+    event.target.appendChild(el);
+    console.debug("drop", id)
+    event.target.classList.remove('card-slot-highlighted-drop');
 }
 
 function togleCardSlots(off = false){
@@ -57,4 +66,12 @@ function togleCardSlots(off = false){
             slot.classList.add('card-slot-highlighted')
         }
     }
+}
+
+function dragEnterHandler(event){
+    
+}
+
+function dragLeaveHandler(event){
+    event.target.classList.remove('card-slot-highlighted-drop');
 }
