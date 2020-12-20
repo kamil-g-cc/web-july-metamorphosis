@@ -17,6 +17,7 @@ function shuffleCards() {
 function initHandlers() {
     let cards = document.getElementsByClassName('card');
     let cardSlots = document.getElementsByClassName('metamorphosis-slots');
+    let mixedCardsContainer = document.querySelector(".mixed-cards");
     for (const card of cards){
         card.addEventListener("dragstart", dragStartHandler);
         card.addEventListener("dragend", dragEndHandler);
@@ -28,6 +29,9 @@ function initHandlers() {
         card.addEventListener("dragenter", dragEnterHandler);
         card.addEventListener("dragleave", dragLeaveHandler);
     }
+
+    mixedCardsContainer.addEventListener("dragover", mixedCardsDragHandler);
+    mixedCardsContainer.addEventListener("drop", mixedCardsDropHandler);
 }
 
 function dragStartHandler(event){
@@ -74,4 +78,20 @@ function dragEnterHandler(event){
 
 function dragLeaveHandler(event){
     event.target.classList.remove('card-slot-highlighted-drop');
+}
+
+function mixedCardsDragHandler(event){
+    event.preventDefault();
+}
+
+function mixedCardsDropHandler(event){
+    let id = event.dataTransfer.getData('text/plain');
+
+    let el = document.getElementById(id);
+    console.debug("drop mixed", event.target);
+    if(event.target.nodeName=="IMG"){
+        event.target.parentNode.parentNode.appendChild(el);
+    } else {
+        event.target.appendChild(el);
+    }
 }
