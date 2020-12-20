@@ -54,9 +54,18 @@ function dragOverHandler(event){
     event.preventDefault();
 }
 function dropHandler(event){
+    let mixedCardsContainer = document.querySelector('.mixed-cards');
     let id = event.dataTransfer.getData("text/plain")
     let el = document.getElementById(id);
-    event.target.appendChild(el);
+    let old = null;
+    if(event.target.nodeName=="IMG"){
+        event.target.parentNode.parentNode.appendChild(el);
+        old = event.target.parentNode;
+        mixedCardsContainer.appendChild(old);
+    } else {
+        event.target.appendChild(el);
+    }
+    
     console.debug("drop", id)
     event.target.classList.remove('card-slot-highlighted-drop');
 }
